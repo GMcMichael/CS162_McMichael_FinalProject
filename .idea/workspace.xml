@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="47e9b64f-55ad-4396-9a15-d035eb88519d" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1cBZwAdx9mgwJ2b2UirYMBbNyEc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="47e9b64f-55ad-4396-9a15-d035eb88519d" name="Default Changelist" comment="" />
+      <created>1590004182192</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590004182192</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1245" y="227" key="#com.intellij.ide.util.MemberChooser" timestamp="1590006123168">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1245" y="227" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1590006123168" />
+    <state x="1059" y="289" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1590004477286">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1059" y="289" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1590004477286" />
+    <state x="809" y="109" key="SettingsEditor" timestamp="1590004479770">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="809" y="109" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1590004479770" />
+  </component>
+</project>
