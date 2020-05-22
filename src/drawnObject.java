@@ -1,26 +1,30 @@
 import processing.core.PApplet;
+import java.awt.Color;
 
 abstract class drawnObject {
 
     private float x;
     private float y;
-    private int c = 150;//150 is grey
+    private Color c = Color.GRAY;
     private float size;
 
     private PApplet p;
 
-    public drawnObject(PApplet p, int x, int y){
+    public drawnObject(PApplet p, int x, int y, float size){
         this.p = p;
         this.x = x;
         this.y = y;
+        this.size = size;
     }
 
     public void draw(){
-        p.stroke(150);
-        p.fill(c);
+        p.stroke(Color.GRAY.getRGB());
+        p.fill(c.getRGB());
         p.circle(x, y, size);
         //p.ellipse(x, y, size, size);
     }
+
+    public abstract void Update();
 
     public float getX() {
         return x;
@@ -38,11 +42,11 @@ abstract class drawnObject {
         this.y = y;
     }
 
-    public int getC() {
+    public Color getC() {
         return c;
     }
 
-    public void setC(int c) {
+    public void setC(Color c) {
         this.c = c;
     }
 
