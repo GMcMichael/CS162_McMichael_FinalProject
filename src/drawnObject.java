@@ -7,7 +7,6 @@ abstract class drawnObject {
     private float y;
     private Color c = Color.GRAY;
     private float size;
-
     private PApplet p;
 
     public drawnObject(PApplet p, int x, int y, float size){
@@ -25,6 +24,8 @@ abstract class drawnObject {
     }
 
     public abstract void Update();
+
+    public abstract void interact(drawnObject d);
 
     public float getX() {
         return x;

@@ -49,7 +49,9 @@ public class Canvas extends PApplet {
 
     public void draw(){
         background(255);
-        for(drawnObject d: drawObjects){
+        ArrayList<drawnObject> curDrawObjects = new ArrayList<drawnObject>();
+        curDrawObjects.addAll(drawObjects);
+        for(drawnObject d: curDrawObjects){
             d.Update();
             d.draw();
         }
@@ -73,6 +75,7 @@ public class Canvas extends PApplet {
     public static void addHuman(Human h){
         humans++;
         humanObjects.add(h);
+        drawObjects.add(h);
     }
 
     public static void removeHuman(Human h){
@@ -83,6 +86,7 @@ public class Canvas extends PApplet {
     public static void addZombie(Zombie z){
         zombies++;
         zombieObjects.add(z);
+        drawObjects.add(z);
     }
 
     public static void removeZombie(Zombie z){

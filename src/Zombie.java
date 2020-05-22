@@ -35,6 +35,7 @@ public class Zombie extends Humanoid {
             }
         }
         if(closest != null){
+            setInteractTarget(closest);
             setTarget(new Point((int)closest.getX(), (int)closest.getY()));
         } else {
             setTarget(null);

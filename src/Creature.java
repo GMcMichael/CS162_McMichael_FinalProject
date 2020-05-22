@@ -11,6 +11,8 @@ public class Creature extends drawnObject {
     private float xAcceleration;
     private float yAcceleration;
     private Point target;
+    private int interactionRange = 10;//todo update interaction range
+    private drawnObject interactTarget;
 
     public Creature(PApplet p, int x, int y, float size){
         super(p, x, y, size);
@@ -41,6 +43,8 @@ public class Creature extends drawnObject {
             if(y == 0) y = -1;
             setxAcceleration(x);
             setyAcceleration(y);
+        } else if(Math.sqrt(Math.pow((target.getX() - getX()), 2) + Math.pow((target.getY() - getY()), 2)) < interactionRange){
+            if(interactTarget != null) interactTarget.interact(this);//sends the first char of the class name in lowercase as the parameter
         } else {
             //todo actually make acceleration when scale is set
             if (target.getX() > getX()) setxAcceleration(1);
@@ -48,6 +52,10 @@ public class Creature extends drawnObject {
             if (target.getY() > getY()) setyAcceleration(1);
             else if (target.getY() < getY()) setyAcceleration(-1);
         }
+    }
+
+    public void interact(drawnObject d){
+        //todo base creature interact function
     }
 
     public void death(){
@@ -88,5 +96,13 @@ public class Creature extends drawnObject {
 
     public void setTarget(Point target) {
         this.target = target;
+    }
+
+    public drawnObject getInteractTarget() {
+        return interactTarget;
+    }
+
+    public void setInteractTarget(drawnObject interactTarget) {
+        this.interactTarget = interactTarget;
     }
 }
