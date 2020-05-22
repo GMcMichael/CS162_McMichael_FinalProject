@@ -1,11 +1,10 @@
 import processing.core.PApplet;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 
 public class Zombie extends Humanoid {
 
-    private int detectionRange;
+    private int detectionRange = 200;
 
     public Zombie(PApplet p, int x, int y, float size){
         super(p, x, y, size);
@@ -15,8 +14,8 @@ public class Zombie extends Humanoid {
     //humans avoid zombies so only zombies will look for humans (currently)
      @Override
     public void Update(){
-        super.Update();
         search();
+        super.Update();
     }
 
     private void search(){
@@ -36,7 +35,9 @@ public class Zombie extends Humanoid {
             }
         }
         if(closest != null){
-            calculateAcceleration(new Point((int)closest.getX(), (int)closest.getY()));
+            setTarget(new Point((int)closest.getX(), (int)closest.getY()));
+        } else {
+            setTarget(null);
         }
     }
 

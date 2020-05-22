@@ -19,7 +19,6 @@ public class Canvas extends PApplet {
     private static int maxZombies = 100;
     private static int spawnOffset = (width/20);
     private PFont font;
-    //todo display human and zombie numbers
 
     public void settings(){
         size(width, height);
@@ -38,15 +37,18 @@ public class Canvas extends PApplet {
         //todo randomize human and zombie spawns and size
         for (int i = 0; i < humans; i++) {
             int x = (int) ((Math.random() * ((width - spawnOffset) - spawnOffset)) + spawnOffset);
-            drawObjects.add(new Human(this, x, 800, 10));
+            humanObjects.add(new Human(this, x, 800, 10));
         }
         for (int i = 0; i < zombies; i++) {
             int x = (int) ((Math.random() * ((width - spawnOffset) - spawnOffset)) + spawnOffset);
-            drawObjects.add(new Zombie(this, x, 200, 10));
+            zombieObjects.add(new Zombie(this, x, 200, 10));
         }
+        drawObjects.addAll(humanObjects);
+        drawObjects.addAll(zombieObjects);
     }
 
     public void draw(){
+        background(255);
         for(drawnObject d: drawObjects){
             d.Update();
             d.draw();
@@ -88,4 +90,11 @@ public class Canvas extends PApplet {
         zombieObjects.remove(z);
     }
 
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
+    }
 }
