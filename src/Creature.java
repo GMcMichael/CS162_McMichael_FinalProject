@@ -1,10 +1,7 @@
 import processing.core.PApplet;
 
 public class Creature extends drawnObject {
-
-    //todo add health and strength
-    //private int health;
-    //private int strength;
+    
     private float maxSpeed;
     private float xVelocity;
     private float yVelocity;
@@ -33,17 +30,15 @@ public class Creature extends drawnObject {
         if((newY > 0) && (newY < Canvas.getHeight())) setY(newY);
     }
 
-    //todo optimize acceleration by multiplying variable by pos/neg from change. what???
     public void calculateAcceleration(Point target){
         if(target == null){
-            //todo random movement is just setting acceleration to -1 or 1, update when acceleration scale is set
-            int x = (int) Math.round(Math.random());
-            int y = (int) Math.round(Math.random());
-            if(x == 0) x = -1;
-            if(y == 0) y = -1;
+            //todo random movement is just setting acceleration to -1, 0, or 1. Update when acceleration scale is set
+            int x = (int) Math.round((Math.random()*2))-1;
+            int y = (int) Math.round((Math.random()*2))-1;
             setxAcceleration(x);
             setyAcceleration(y);
         } else if(Math.sqrt(Math.pow((target.getX() - getX()), 2) + Math.pow((target.getY() - getY()), 2)) < interactionRange){
+            //todo maybe split this into x and y so it doesnt move in as straight of a line
             if(interactTarget != null) interactTarget.interact(this);//sends the first char of the class name in lowercase as the parameter
         } else {
             //todo actually make acceleration when scale is set
