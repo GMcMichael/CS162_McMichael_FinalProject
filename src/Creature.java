@@ -58,6 +58,7 @@ public class Creature extends drawnObject {
     }
 
     public void Update(){
+        if(getSize() <= 0) death();//todo make sure this calls human / zombie death
         move();
     }
 
