@@ -14,17 +14,17 @@ public class Canvas extends PApplet {
     private static ArrayList<Resource> waterObjects = new ArrayList<Resource>();
     private static int humans;
     private static int zombies;
-    private static final int minHumans = 20;
-    private static final int minZombies = 20;
-    private static final int maxHumans = 100;
-    private static final int maxZombies = 100;
-    private static final int minFood = minHumans/10;
-    private static final int maxFood = maxHumans/10;
-    private static final int minWater = minHumans/10;
-    private static final int maxWater = maxHumans/10;
+    private static int minHumans = 20;
+    private static int minZombies = 20;
+    private static int maxHumans = 100;
+    private static int maxZombies = 100;
+    private static int minFood;
+    private static int maxFood;
+    private static int minWater;
+    private static int maxWater;
     private final int useTimerMax = 50;//todo update resource use timer
     private int resourceUseTimer = useTimerMax;
-    private static int spawnOffset = (width/20);
+    private static int spawnOffset;
     private PFont font;
 
     public void settings(){
@@ -32,6 +32,15 @@ public class Canvas extends PApplet {
     }
 
     public void setup(){
+        minFood = minHumans/10;
+        maxFood = maxHumans/10;
+        minWater = minHumans/10;
+        maxWater = maxHumans/10;
+        System.out.println(width);
+        System.out.println(width/20);
+        spawnOffset = (width/10);
+        System.out.println(spawnOffset);
+
         font = createFont("Arial",16);
         textFont(font);
         textAlign(CENTER);
@@ -42,11 +51,13 @@ public class Canvas extends PApplet {
         //todo randomize human and zombie spawns across entire screen and size
         for (int i = 0; i < humans; i++) {
             int x = (int) ((Math.random() * ((width - spawnOffset) - spawnOffset)) + spawnOffset);
-            humanObjects.add(new Human(this, x, 800, 10));
+            int y = height - spawnOffset;
+            humanObjects.add(new Human(this, x, y, 10));
         }
         for (int i = 0; i < zombies; i++) {
             int x = (int) ((Math.random() * ((width - spawnOffset) - spawnOffset)) + spawnOffset);
-            zombieObjects.add(new Zombie(this, x, 200, 10));
+            int y = spawnOffset;
+            zombieObjects.add(new Zombie(this, x, y, 10));
         }
         drawObjects.addAll(humanObjects);
         drawObjects.addAll(zombieObjects);
@@ -138,8 +149,16 @@ public class Canvas extends PApplet {
         return width;
     }
 
+    public static void setWidth(int newWidth) {
+        width = newWidth;
+    }
+
     public static int getHeight() {
         return height;
+    }
+
+    public static void setHeight(int newHeight) {
+        height = newHeight;
     }
 
     public static ArrayList<drawnObject> getAllResources() {

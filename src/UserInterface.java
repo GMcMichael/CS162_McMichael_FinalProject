@@ -48,13 +48,14 @@ public class UserInterface {
         addLabeledSpinner("Width", widthModel);
         spinnerModels.add(widthModel);
         SpinnerModel heightModel = new SpinnerNumberModel(currHeight, 500, 2000, 1);
-        addLabeledSpinner("Height", widthModel);
+        addLabeledSpinner("Height", heightModel);
         spinnerModels.add(heightModel);
 
         start = new JButton("Start");
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                setSettings();
                 PApplet.main(OPTIONS);
                 frame.setVisible(false);
             }
@@ -74,8 +75,11 @@ public class UserInterface {
         JSpinner spinner = new JSpinner(model);
         l.setLabelFor(spinner);
         panel.add(spinner);
+    }
 
-        //frame.add(spinner);
+    private void setSettings(){
+        Canvas.setWidth(((SpinnerNumberModel)spinnerModels.get(0)).getNumber().intValue());
+        Canvas.setHeight(((SpinnerNumberModel)spinnerModels.get(1)).getNumber().intValue());
     }
 
 }
