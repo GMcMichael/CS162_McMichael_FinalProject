@@ -8,7 +8,7 @@ public class Creature extends drawnObject {
     private float xAcceleration;
     private float yAcceleration;
     private Point target;
-    private int interactionRange = 10;//todo update interaction range
+    private int interactionRange = (int) getSize();
     private drawnObject interactTarget;
 
     public Creature(PApplet p, int x, int y, float size){
@@ -58,7 +58,7 @@ public class Creature extends drawnObject {
     }
 
     public void Update(){
-        if(getSize() <= 0) death();//todo make sure this calls human / zombie death
+        if(getSize() <= 0) death();
         move();
     }
 

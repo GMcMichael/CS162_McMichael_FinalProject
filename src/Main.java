@@ -2,8 +2,6 @@ import processing.core.PApplet;
 
 public class Main {
 
-    private final static String[] OPTIONS = new String[] {"--present", "Canvas"};
-
     /*
     what I have done sense last milestone:
     Added Humans need for food and water and timer for using food and water
@@ -11,13 +9,13 @@ public class Main {
     Humans seek out food and water based on what they need
     Humans grow and shrink in size based on how much food and water they have
     After humans reach a certain size, they search for zombies to kill
+    Started adding the user interface for changing the simulation
      */
 
     public static void main(String[] args){
-        PApplet.main(OPTIONS);
+        UserInterface ui = new UserInterface();
     }
     //todo
-    // maybe add user interface to change probability
     // maybe add sound and image
     // maybe add file saving and reading to save probabilities
     // maybe add a human that can be controlled by the user

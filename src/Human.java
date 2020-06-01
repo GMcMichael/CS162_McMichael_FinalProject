@@ -6,7 +6,6 @@ public class Human extends Humanoid{
 
     private float food = 100;
     private float water = 100;
-    private int interationRange = 200;
     private float resourceGatherAmount;
     private final float baseResourceUse = 0.1f;//todo update base resource use
     private final int sizeResourceUse = 25;
