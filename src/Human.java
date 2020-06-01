@@ -10,6 +10,7 @@ public class Human extends Humanoid{
     private float resourceGatherAmount;
     private final float baseResourceUse = 0.1f;//todo update base resource use
     private final int sizeResourceUse = 25;
+    private final int zombieSeekSize = 11;
 
     public Human(PApplet p, int x, int y, float size){
         super(p, x, y, size);
@@ -22,16 +23,22 @@ public class Human extends Humanoid{
         search();
         super.Update();
     }
-
-    private void search(){//make Humans do something other than seek food and water. Current idea is after they reach a certain size they seek out zombies or maybe shelter to produce more humans, then if they start running out of food and reach a certain lower size they start seeking food and water away from zombies again
+    //make Humans do something other than seek food and water. Current idea is after they reach a certain size they seek out
+    // zombies or maybe shelter to produce more humans, then if they start running out of food and reach a certain lower size they start seeking food and water away from zombies again
+    // make humans only go for food and water if they are above a certain size based on human size
+    private void search(){
         //search for food or water based on current resource amounts
-        ArrayList<Resource> resources;
-        if(food == water) resources = Canvas.getAllResources();
-        else if(food < water) resources = Canvas.getFood();
-        else resources = Canvas.getWater();
-        Resource closest = null;
+        ArrayList<drawnObject> targets;
+        if(getSize() > zombieSeekSize){
+            targets = Canvas.getZombies();
+        } else {
+            if (food == water) targets = Canvas.getAllResources();
+            else if (food < water) targets = Canvas.getFood();
+            else targets = Canvas.getWater();
+        }
+        drawnObject closest = null;
         double closestDist = -1;
-        for (Resource r: resources){
+        for (drawnObject r: targets){
             double dist = Math.sqrt(Math.pow((r.getX() - getX()), 2) + Math.pow((r.getY() - getY()), 2));//distance formula
                 if(closestDist == -1){
                     closestDist = dist;

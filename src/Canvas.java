@@ -106,6 +106,12 @@ public class Canvas extends PApplet {
         return humanObjects;
     }
 
+    public static ArrayList<drawnObject> getZombies() {
+        ArrayList<drawnObject> zombies = new ArrayList<drawnObject>();
+        zombies.addAll(zombieObjects);
+        return zombies;
+    }
+
     public static void addHuman(Human h){
         humans++;
         humanObjects.add(h);
@@ -136,18 +142,22 @@ public class Canvas extends PApplet {
         return height;
     }
 
-    public static ArrayList<Resource> getAllResources() {
-        ArrayList<Resource> allResources = new ArrayList<Resource>();
+    public static ArrayList<drawnObject> getAllResources() {
+        ArrayList<drawnObject> allResources = new ArrayList<drawnObject>();
         allResources.addAll(foodObjects);
         allResources.addAll(waterObjects);
         return  allResources;
     }
 
-    public static ArrayList<Resource> getFood() {
-        return foodObjects;
+    public static ArrayList<drawnObject> getFood() {
+        ArrayList<drawnObject> food = new ArrayList<drawnObject>();
+        food.addAll(foodObjects);
+        return food;
     }
 
-    public static ArrayList<Resource> getWater() {
-        return waterObjects;
+    public static ArrayList<drawnObject> getWater() {
+        ArrayList<drawnObject> water = new ArrayList<drawnObject>();
+        water.addAll(waterObjects);
+        return water;
     }
 }
