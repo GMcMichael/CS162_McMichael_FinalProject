@@ -98,6 +98,12 @@ public class Creature extends drawnObject {
         return interactTarget;
     }
 
+    @Override
+    public void setSize(float size){
+        interactionRange = (int) getSize();
+        super.setSize(size);
+    }
+
     public void setInteractTarget(drawnObject interactTarget) {
         this.interactTarget = interactTarget;
     }

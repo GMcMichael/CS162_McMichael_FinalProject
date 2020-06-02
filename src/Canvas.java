@@ -12,17 +12,20 @@ public class Canvas extends PApplet {
     private static ArrayList<Zombie> zombieObjects = new ArrayList<Zombie>();
     private static ArrayList<Resource> foodObjects = new ArrayList<Resource>();
     private static ArrayList<Resource> waterObjects = new ArrayList<Resource>();
-    private static int humans;
-    private static int zombies;
+    private static int humans = 0;
+    private static int zombies = 0;
     private static int minHumans = 20;
     private static int minZombies = 20;
     private static int maxHumans = 100;
     private static int maxZombies = 100;
-    private static int minFood;
-    private static int maxFood;
-    private static int minWater;
-    private static int maxWater;
-    private final int useTimerMax = 50;//todo update resource use timer
+    private static int minFood = 0;
+    private static int maxFood = 0;
+    private static int minWater = 0;
+    private static int maxWater = 0;
+    private static float resourceBaseRegenAmount = 0.5f;
+    private static int resourceMaxSize = 15;
+    private static int resourceStartAmount = 100;
+    private static int useTimerMax = 50;
     private int resourceUseTimer = useTimerMax;
     private static int spawnOffset;
     private PFont font;
@@ -32,22 +35,19 @@ public class Canvas extends PApplet {
     }
 
     public void setup(){
-        minFood = minHumans/10;
-        maxFood = maxHumans/10;
-        minWater = minHumans/10;
-        maxWater = maxHumans/10;
-        System.out.println(width);
-        System.out.println(width/20);
+        if(minFood == 0) minFood = minHumans/10;
+        if(maxFood == 0) maxFood = maxHumans/10;
+        if(minWater == 0) minWater = minHumans/10;
+        if(maxWater == 0) maxWater = maxHumans/10;
         spawnOffset = (width/10);
-        System.out.println(spawnOffset);
 
         font = createFont("Arial",16);
         textFont(font);
         textAlign(CENTER);
 
         //creates humans and zombies
-        humans = (int)((Math.random()*(maxHumans-minHumans))+minHumans);
-        zombies = (int)((Math.random()*(maxZombies-minZombies))+minZombies);
+        if(humans == 0) humans = (int)((Math.random()*(maxHumans-minHumans))+minHumans);
+        if(zombies == 0) zombies = (int)((Math.random()*(maxZombies-minZombies))+minZombies);
         //todo randomize human and zombie spawns across entire screen and size
         for (int i = 0; i < humans; i++) {
             int x = (int) ((Math.random() * ((width - spawnOffset) - spawnOffset)) + spawnOffset);
@@ -81,6 +81,7 @@ public class Canvas extends PApplet {
 
     public void draw(){
         background(255);
+        resourceUseTimer--;
         resourceUseTimer--;
         if(resourceUseTimer < 0) {
             ArrayList<Human> currHumans = new ArrayList<Human>();
@@ -178,5 +179,117 @@ public class Canvas extends PApplet {
         ArrayList<drawnObject> water = new ArrayList<drawnObject>();
         water.addAll(waterObjects);
         return water;
+    }
+
+    public static void setHumans(int humans){
+        Canvas.humans = humans;
+    }
+
+    public static void setZombies(int zombies){
+        Canvas.zombies = zombies;
+    }
+
+    public static int getMinHumans() {
+        return minHumans;
+    }
+
+    public static void setMinHumans(int minHumans) {
+        Canvas.minHumans = minHumans;
+    }
+
+    public static int getMinZombies() {
+        return minZombies;
+    }
+
+    public static void setMinZombies(int minZombies) {
+        Canvas.minZombies = minZombies;
+    }
+
+    public static int getMaxHumans() {
+        return maxHumans;
+    }
+
+    public static void setMaxHumans(int maxHumans) {
+        Canvas.maxHumans = maxHumans;
+    }
+
+    public static int getMaxZombies() {
+        return maxZombies;
+    }
+
+    public static void setMaxZombies(int maxZombies) {
+        Canvas.maxZombies = maxZombies;
+    }
+
+    public static int getMinFood() {
+        return minFood;
+    }
+
+    public static void setMinFood(int minFood) {
+        Canvas.minFood = minFood;
+    }
+
+    public static int getMaxFood() {
+        return maxFood;
+    }
+
+    public static void setMaxFood(int maxFood) {
+        Canvas.maxFood = maxFood;
+    }
+
+    public static int getMinWater() {
+        return minWater;
+    }
+
+    public static void setMinWater(int minWater) {
+        Canvas.minWater = minWater;
+    }
+
+    public static int getMaxWater() {
+        return maxWater;
+    }
+
+    public static void setMaxWater(int maxWater) {
+        Canvas.maxWater = maxWater;
+    }
+
+    public int getUseTimerMax(){
+        return useTimerMax;
+    }
+
+    public void setUseTimerMax(int useTimerMax){
+        Canvas.useTimerMax = useTimerMax;
+    }
+
+    public int getResourceUseTimer() {
+        return resourceUseTimer;
+    }
+
+    public void setResourceUseTimer(int resourceUseTimer) {
+        this.resourceUseTimer = resourceUseTimer;
+    }
+
+    public static float getResourceBaseRegenAmount() {
+        return resourceBaseRegenAmount;
+    }
+
+    public static void setResourceBaseRegenAmount(float resourceBaseRegenAmount) {
+        Canvas.resourceBaseRegenAmount = resourceBaseRegenAmount;
+    }
+
+    public static int getResourceMaxSize() {
+        return resourceMaxSize;
+    }
+
+    public static void setResourceMaxSize(int resourceMaxSize) {
+        Canvas.resourceMaxSize = resourceMaxSize;
+    }
+
+    public static int getResourceStartAmount() {
+        return resourceStartAmount;
+    }
+
+    public static void setResourceStartAmount(int resourceStartAmount) {
+        Canvas.resourceStartAmount = resourceStartAmount;
     }
 }

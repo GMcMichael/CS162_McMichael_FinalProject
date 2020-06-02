@@ -5,10 +5,10 @@ import java.awt.*;
 public class Resource extends drawnObject {
 
     private char type;
-    private int amount = 100;
+    private int amount = Canvas.getResourceStartAmount();
     private float regenAmount;//todo set regen for resources
-    private final float baseRegenAmount = 0.5f;
-    private final int maxSize = 15;
+    private final float baseRegenAmount = Canvas.getResourceBaseRegenAmount();
+    private final int maxSize = Canvas.getResourceMaxSize();
 
     public Resource(PApplet p, int x, int y, float size, char type){
         super(p, x, y, size);

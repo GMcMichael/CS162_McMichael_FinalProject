@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args){
         UserInterface ui = new UserInterface();
     }
-    //todo
+    //todo make movement more fluid
     // maybe add sound and image
     // maybe add file saving and reading to save probabilities
     // maybe add a human that can be controlled by the user
