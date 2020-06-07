@@ -2,14 +2,17 @@ import processing.core.PApplet;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class Human extends Humanoid{
+public class Human extends Creature{
 
     private float food = 100;
     private float water = 100;
     private float resourceGatherAmount;
-    private final float baseResourceUse = 0.1f;//todo update base resource use
-    private final int sizeResourceUse = 25;
-    private final int zombieSeekSize = 11;
+    private final float baseResourceUse = (float) Canvas.getBaseResourceUse()/10;
+    private final int sizeResourceUse = Canvas.getSizeResourceUse();
+    private final int zombieSeekSize = Canvas.getZombieSeekSize();
+    private boolean resourceTarget;
+    private boolean reachedTarget = true;
+    private int minResourceSize = 10;
 
     public Human(PApplet p, int x, int y, float size){
         super(p, x, y, size);
@@ -22,35 +25,39 @@ public class Human extends Humanoid{
         search();
         super.Update();
     }
-    //make Humans do something other than seek food and water. Current idea is after they reach a certain size they seek out
-    // zombies or maybe shelter to produce more humans, then if they start running out of food and reach a certain lower size they start seeking food and water away from zombies again
-    // make humans only go for food and water if they are above a certain size based on human size
+
     private void search(){
         //search for food or water based on current resource amounts
         ArrayList<drawnObject> targets;
         if(getSize() > zombieSeekSize){
             targets = Canvas.getZombies();
+            resourceTarget = false;
+            reachedTarget = true;
         } else {
             if (food == water) targets = Canvas.getAllResources();
             else if (food < water) targets = Canvas.getFood();
             else targets = Canvas.getWater();
+            resourceTarget = true;
         }
         drawnObject closest = null;
         double closestDist = -1;
         for (drawnObject r: targets){
-            double dist = Math.sqrt(Math.pow((r.getX() - getX()), 2) + Math.pow((r.getY() - getY()), 2));//distance formula
-                if(closestDist == -1){
+            if((resourceTarget && (((Resource)r).getSize() > minResourceSize) && reachedTarget) || !resourceTarget) {
+                double dist = Math.sqrt(Math.pow((r.getX() - getX()), 2) + Math.pow((r.getY() - getY()), 2));//distance formula
+                if (closestDist == -1) {
                     closestDist = dist;
                     closest = r;
-                } else if(dist < closestDist) {
+                } else if (dist < closestDist) {
                     closestDist = dist;
                     closest = r;
                 }
+            }
         }
         if(closest != null){
             setInteractTarget(closest);
             setTarget(new Point((int)closest.getX(), (int)closest.getY()));
-        } else {
+            if(resourceTarget) reachedTarget = false;
+        } else if(reachedTarget) {//!resourceTarget
             setTarget(null);
         }
     }
@@ -70,6 +77,7 @@ public class Human extends Humanoid{
     }
 
     public void addResources(char type, float amount){
+        reachedTarget = true;
         switch (type){
             case 'f':
                 setFood(getFood() + amount);
@@ -107,7 +115,7 @@ public class Human extends Humanoid{
 
     @Override
     public void setSize(float size){
-        resourceGatherAmount = size;//todo update setting resourceGatherAmount
+        resourceGatherAmount = size;
         super.setSize(size);
     }
 

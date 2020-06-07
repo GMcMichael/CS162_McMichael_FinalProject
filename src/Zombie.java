@@ -2,16 +2,15 @@ import processing.core.PApplet;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class Zombie extends Humanoid {
+public class Zombie extends Creature {
 
-    private int detectionRange = 200;
+    private int detectionRange = Canvas.getZombieDetectionRange();
 
     public Zombie(PApplet p, int x, int y, float size){
         super(p, x, y, size);
         setC(Color.RED);
     }
 
-    //humans avoid zombies so only zombies will look for humans (currently)
      @Override
     public void Update(){
         search();

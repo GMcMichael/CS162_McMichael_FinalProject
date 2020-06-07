@@ -2,7 +2,7 @@ import processing.core.PApplet;
 
 public class Creature extends drawnObject {
     
-    private float maxSpeed;
+    private int maxSpeed = Canvas.getMaxSpeed();
     private float xVelocity;
     private float yVelocity;
     private float xAcceleration;
@@ -13,7 +13,6 @@ public class Creature extends drawnObject {
 
     public Creature(PApplet p, int x, int y, float size){
         super(p, x, y, size);
-        maxSpeed = 1;//(p.displayWidth/1000);//todo update max speed
     }
 
     public void move(){
@@ -32,16 +31,13 @@ public class Creature extends drawnObject {
 
     public void calculateAcceleration(Point target){
         if(target == null){
-            //todo random movement is just setting acceleration to -1, 0, or 1. Update when acceleration scale is set
             int x = (int) Math.round((Math.random()*2))-1;
             int y = (int) Math.round((Math.random()*2))-1;
             setxAcceleration(x);
             setyAcceleration(y);
         } else if(Math.sqrt(Math.pow((target.getX() - getX()), 2) + Math.pow((target.getY() - getY()), 2)) < interactionRange){
-            //todo maybe split this into x and y so it doesnt move in as straight of a line
             if(interactTarget != null) interactTarget.interact(this);//sends the first char of the class name in lowercase as the parameter
         } else {
-            //todo actually make acceleration when scale is set
             if (target.getX() > getX()) setxAcceleration(1);
             else if (target.getX() < getX()) setxAcceleration(-1);
             if (target.getY() > getY()) setyAcceleration(1);
@@ -62,11 +58,11 @@ public class Creature extends drawnObject {
         move();
     }
 
-    public float getMaxSpeed() {
+    public int getMaxSpeed() {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(float maxSpeed) {
+    public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
 

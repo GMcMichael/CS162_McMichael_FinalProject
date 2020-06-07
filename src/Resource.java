@@ -5,10 +5,10 @@ import java.awt.*;
 public class Resource extends drawnObject {
 
     private char type;
-    private int amount = Canvas.getResourceStartAmount();
-    private float regenAmount;//todo set regen for resources
-    private final float baseRegenAmount = Canvas.getResourceBaseRegenAmount();
-    private final int maxSize = Canvas.getResourceMaxSize();
+    private int amount = Canvas.getFoodStartAmount();
+    private float regenAmount;
+    private float baseRegenAmount = Canvas.getFoodBaseRegenAmount();
+    private int maxSize = Canvas.getFoodMaxSize();
 
     public Resource(PApplet p, int x, int y, float size, char type){
         super(p, x, y, size);
@@ -16,16 +16,20 @@ public class Resource extends drawnObject {
         switch (type){
             case 'f':
                 setC(Color.YELLOW);
+                setAmount(Canvas.getFoodStartAmount());
+                setBaseRegenAmount(Canvas.getFoodBaseRegenAmount());
+                setMaxSize(Canvas.getFoodMaxSize());
                 break;
             case 'w':
                 setC(Color.CYAN);
+                setAmount(Canvas.getWaterStartAmount());
+                setBaseRegenAmount(Canvas.getWaterBaseRegenAmount());
+                setMaxSize(Canvas.getWaterMaxSize());
                 break;
         }
-        regenAmount = getSize()*baseRegenAmount;
     }
 
     public void interact(drawnObject d){
-        //cast d to human and use it to add the resources type to the human object and remove the resources based on human size or new variable called collection amount that is randomized (have to stay longer to collect more)
         if(d.getClass().getTypeName().equals("Human")){
             Human h = (Human)d;
             float collectAmount = h.getResourceGatherAmount();
@@ -37,9 +41,28 @@ public class Resource extends drawnObject {
 
     public void Update(){
         //replenish a small amount of resources
-        amount += regenAmount;
         int newSize = amount/10;
         if(newSize > maxSize) newSize = maxSize;
         setSize(newSize);
+    }
+
+    public void regen(){
+        amount += baseRegenAmount;
+    }
+
+    public int getAmount(){
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setBaseRegenAmount(float baseRegenAmount) {
+        this.baseRegenAmount = baseRegenAmount;
+    }
+
+    public void setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
     }
 }

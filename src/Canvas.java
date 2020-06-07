@@ -22,11 +22,19 @@ public class Canvas extends PApplet {
     private static int maxFood = 0;
     private static int minWater = 0;
     private static int maxWater = 0;
-    private static float resourceBaseRegenAmount = 0.5f;
-    private static int resourceMaxSize = 15;
-    private static int resourceStartAmount = 100;
+    private static int foodBaseRegenAmount = 10;
+    private static int waterBaseRegenAmount = 10;
+    private static int foodMaxSize = 15;
+    private static int waterMaxSize = 15;
+    private static int foodStartAmount = 100;
+    private static int waterStartAmount = 100;
     private static int useTimerMax = 50;
     private int resourceUseTimer = useTimerMax;
+    private static int baseResourceUse = 1;
+    private static int sizeResourceUse = 25;
+    private static int zombieSeekSize = 11;
+    private static int maxSpeed = 1;
+    private static int zombieDetectionRange = 200;
     private static int spawnOffset;
     private PFont font;
 
@@ -48,7 +56,6 @@ public class Canvas extends PApplet {
         //creates humans and zombies
         if(humans == 0) humans = (int)((Math.random()*(maxHumans-minHumans))+minHumans);
         if(zombies == 0) zombies = (int)((Math.random()*(maxZombies-minZombies))+minZombies);
-        //todo randomize human and zombie spawns across entire screen and size
         for (int i = 0; i < humans; i++) {
             int x = (int) ((Math.random() * ((width - spawnOffset) - spawnOffset)) + spawnOffset);
             int y = height - spawnOffset;
@@ -89,6 +96,12 @@ public class Canvas extends PApplet {
             for (Human h: currHumans) {
                 h.useResources();
             }
+            ArrayList<Resource> currResources = new ArrayList<Resource>();
+            currResources.addAll(foodObjects);
+            currResources.addAll(waterObjects);
+            for(Resource r : currResources){
+                r.regen();
+            }
             resourceUseTimer = useTimerMax;
         }
         ArrayList<drawnObject> curDrawObjects = new ArrayList<drawnObject>();
@@ -100,10 +113,10 @@ public class Canvas extends PApplet {
         fill(Color.BLACK.getRGB());
         text("Zombies: " + zombies, (width/2), 50);
         text("Humans: " + humans, (width/2), (height-50));
-        if(humanObjects.size() > 0){
-            text("Timer: " + resourceUseTimer, (width/2), (height-20));
-            text("Food: " + humanObjects.get(0).getFood() + ", Water: " + humanObjects.get(0).getWater(), (width/2), (height-5));
-        }
+        /*if(humanObjects.size() > 0){
+            text("Resource Use Timer: " + resourceUseTimer, (width/2), (height-20));
+            text("(For First Human Object ->) Food: " + humanObjects.get(0).getFood() + ", Water: " + humanObjects.get(0).getWater() + ", Size: " + humanObjects.get(0).getSize(), (width/2), (height-5));
+        }*/
     }
 
     public static void removeObject(drawnObject d){
@@ -253,43 +266,99 @@ public class Canvas extends PApplet {
         Canvas.maxWater = maxWater;
     }
 
-    public int getUseTimerMax(){
+    public static int getUseTimerMax(){
         return useTimerMax;
     }
 
-    public void setUseTimerMax(int useTimerMax){
+    public static void setUseTimerMax(int useTimerMax){
         Canvas.useTimerMax = useTimerMax;
     }
 
-    public int getResourceUseTimer() {
-        return resourceUseTimer;
+    public static int getFoodBaseRegenAmount() {
+        return foodBaseRegenAmount;
     }
 
-    public void setResourceUseTimer(int resourceUseTimer) {
-        this.resourceUseTimer = resourceUseTimer;
+    public static void setFoodBaseRegenAmount(int foodBaseRegenAmount) {
+        Canvas.foodBaseRegenAmount = foodBaseRegenAmount;
     }
 
-    public static float getResourceBaseRegenAmount() {
-        return resourceBaseRegenAmount;
+    public static int getWaterBaseRegenAmount() {
+        return waterBaseRegenAmount;
     }
 
-    public static void setResourceBaseRegenAmount(float resourceBaseRegenAmount) {
-        Canvas.resourceBaseRegenAmount = resourceBaseRegenAmount;
+    public static void setWaterBaseRegenAmount(int waterBaseRegenAmount) {
+        Canvas.waterBaseRegenAmount = waterBaseRegenAmount;
     }
 
-    public static int getResourceMaxSize() {
-        return resourceMaxSize;
+    public static int getFoodMaxSize() {
+        return foodMaxSize;
     }
 
-    public static void setResourceMaxSize(int resourceMaxSize) {
-        Canvas.resourceMaxSize = resourceMaxSize;
+    public static void setFoodMaxSize(int foodMaxSize) {
+        Canvas.foodMaxSize = foodMaxSize;
     }
 
-    public static int getResourceStartAmount() {
-        return resourceStartAmount;
+    public static int getWaterMaxSize() {
+        return waterMaxSize;
     }
 
-    public static void setResourceStartAmount(int resourceStartAmount) {
-        Canvas.resourceStartAmount = resourceStartAmount;
+    public static void setWaterMaxSize(int waterMaxSize) {
+        Canvas.waterMaxSize = waterMaxSize;
+    }
+
+    public static int getFoodStartAmount() {
+        return foodStartAmount;
+    }
+
+    public static void setFoodStartAmount(int foodStartAmount) {
+        Canvas.foodStartAmount = foodStartAmount;
+    }
+
+    public static int getWaterStartAmount() {
+        return waterStartAmount;
+    }
+
+    public static void setWaterStartAmount(int waterStartAmount) {
+        Canvas.waterStartAmount = waterStartAmount;
+    }
+
+    public static int getBaseResourceUse() {
+        return baseResourceUse;
+    }
+
+    public static void setBaseResourceUse(int baseResourceUse) {
+        Canvas.baseResourceUse = baseResourceUse;
+    }
+
+    public static int getSizeResourceUse() {
+        return sizeResourceUse;
+    }
+
+    public static void setSizeResourceUse(int sizeResourceUse) {
+        Canvas.sizeResourceUse = sizeResourceUse;
+    }
+
+    public static int getZombieSeekSize() {
+        return zombieSeekSize;
+    }
+
+    public static void setZombieSeekSize(int zombieSeekSize) {
+        Canvas.zombieSeekSize = zombieSeekSize;
+    }
+
+    public static int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public static void setMaxSpeed(int maxSpeed) {
+        Canvas.maxSpeed = maxSpeed;
+    }
+
+    public static int getZombieDetectionRange() {
+        return zombieDetectionRange;
+    }
+
+    public static void setZombieDetectionRange(int zombieDetectionRange) {
+        Canvas.zombieDetectionRange = zombieDetectionRange;
     }
 }
