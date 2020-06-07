@@ -1,7 +1,11 @@
 import processing.core.PApplet;
 import java.awt.Color;
 import java.util.ArrayList;
-
+/**
+ * Human.java
+ * @author Garrett McMichael
+ * @version 1
+ */
 public class Human extends Creature{
 
     private float food = 100;
@@ -14,18 +18,33 @@ public class Human extends Creature{
     private boolean reachedTarget = true;
     private int minResourceSize = 10;
 
+    /**
+     * Humans' Constructor
+     * @param p A variable of type PApplet
+     * @param x A variable of type int
+     * @param y A variable of type int
+     * @param size A variable of type float
+     */
     public Human(PApplet p, int x, int y, float size){
         super(p, x, y, size);
         setC(Color.BLUE);
         setSize(size);
     }
 
+    /**
+     * Function Overridden from Creature Class
+     * Called every frame to update the Human object
+     */
     @Override
     public void Update(){
         search();
         super.Update();
     }
 
+    /**
+     * Finds the closest desired target within a circle from
+     * the Human object and sets it to be the new target
+     */
     private void search(){
         //search for food or water based on current resource amounts
         ArrayList<drawnObject> targets;
@@ -62,6 +81,10 @@ public class Human extends Creature{
         }
     }
 
+    /**
+     * Handles resource use and size change base on current resources
+     * Called from Canvas
+     */
     public void useResources(){
         food -= baseResourceUse*getSize();
         water -= baseResourceUse*getSize();
@@ -76,6 +99,12 @@ public class Human extends Creature{
         }
     }
 
+    /**
+     * Handles adding resources to the Humans class
+     * Called from the Resource class
+     * @param type A variable of type Character
+     * @param amount A variable of type float
+     */
     public void addResources(char type, float amount){
         reachedTarget = true;
         switch (type){
@@ -88,6 +117,10 @@ public class Human extends Creature{
         }
     }
 
+    /**
+     * Handles interactions with Zombie Objects
+     * @param d A variable of type Creature
+     */
     public void fight(Creature d){
         int winChance = (int) (60 * (getSize() / d.getSize()));//gets the chance the humans will win based on size difference * base 60% win chance
         int rand = (int) Math.round(Math.random() * 100);//gets an int from 0-100
@@ -102,39 +135,75 @@ public class Human extends Creature{
         }
     }
 
+    /**
+     * Function Overridden from Creature Class
+     * Handles interactions with drawnObjects Class
+     * Called from the Creature Class
+     * @param d A variable of type drawnObject
+     */
     @Override
     public void interact(drawnObject d){
         if(d.getClass().getTypeName().equals("Zombie")) fight((Creature) d);
     }
 
+    /**
+     * Function Overridden from Creature Class
+     * Called when the Human should
+     * die and handles it death
+     */
     @Override
     public void death(){
         super.death();
         Canvas.removeHuman(this);
     }
 
+    /**
+     * Function Overridden from Creature Class
+     * Handles setting Human object size
+     * @param size A variable of type float
+     */
     @Override
     public void setSize(float size){
         resourceGatherAmount = size;
         super.setSize(size);
     }
 
+    /**
+     * Returns the Humans' food variable
+     * @return A variable of type float
+     */
     public float getFood() {
         return food;
     }
 
+    /**
+     * Sets the Humans' food variable
+     * @param food A variable of type float
+     */
     public void setFood(float food) {
         this.food = food;
     }
 
+    /**
+     * Returns the Humans water variable
+     * @return
+     */
     public float getWater() {
         return water;
     }
 
+    /**
+     * Sets the Humans' water variable
+     * @param water A variable of type float
+     */
     public void setWater(float water) {
         this.water = water;
     }
 
+    /**
+     * Returns the Humans' resourceGatherAmount variable
+     * @return A variable of type float
+     */
     public float getResourceGatherAmount() {
         return resourceGatherAmount;
     }

@@ -11,12 +11,12 @@ import java.awt.GridLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-//todo settings for: humans, zombie, food, and water color
-
+/**
+ * UserInterface.java
+ * @author Garrett McMichael
+ * @version 1
+ */
 public class UserInterface {
     private final static String[] OPTIONS = new String[] {"--present", "Canvas"};
 
@@ -36,6 +36,9 @@ public class UserInterface {
                                                 Canvas.getWaterMaxSize(), Canvas.getUseTimerMax(), Canvas.getBaseResourceUse(), Canvas.getSizeResourceUse(), Canvas.getZombieSeekSize(), Canvas.getMaxSpeed(),
                                                 Canvas.getZombieDetectionRange()};
 
+    /**
+     * UserInterfaces' Constructor
+     */
     public UserInterface(){
         frame = new JFrame("CS162_McMichael_FinalProject");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +80,11 @@ public class UserInterface {
         frame.setVisible(true);
     }
 
+    /**
+     * Adds the SpinerModel passed in to the JPanel
+     * @param label A variable of type String
+     * @param model A variable of type SpinnerModel
+     */
      private void addLabeledSpinner(String label, SpinnerModel model) {
         JLabel l = new JLabel(label);
         panel.add(l);
@@ -86,6 +94,10 @@ public class UserInterface {
         panel.add(spinner);
     }
 
+    /**
+     * Called when the user clicks start
+     * Sets all the settings from the user
+     */
     private void setSettings(){
         for (int i = 0; i < 4; i++) {
             setSettingsMethods(i, ((SpinnerNumberModel) spinnerModels.get(i)).getNumber().intValue());
@@ -101,6 +113,12 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Takes the variable from the user and sets it in the Canvas class
+     * Called from SetSettings
+     * @param num A variable of type int
+     * @param settingNum A variable of type int
+     */
     private void setSettingsMethods(int num, int settingNum){
         if(settingNum < 0) settingNum = 0;
         switch (num){
@@ -179,6 +197,12 @@ public class UserInterface {
         }
     }
 
+    /**
+     * Checks the variables passed to make sure the min isn't < 0, and the max isn't less than the min
+     * @param min A variable of type int
+     * @param max A variable of type int
+     * @return An array of type int[]
+     */
     private int[] checkSettings(int min, int max){
         if(min < 0) min = 0;
         if(max < min) max = min;

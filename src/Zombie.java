@@ -1,22 +1,41 @@
 import processing.core.PApplet;
 import java.awt.Color;
 import java.util.ArrayList;
-
+/**
+ * Zombie.java
+ * @author Garrett McMichael
+ * @version 1
+ */
 public class Zombie extends Creature {
 
     private int detectionRange = Canvas.getZombieDetectionRange();
 
+    /**
+     * Zombies' Constructor
+     * @param p A variable of type PApplet
+     * @param x A variable of type int
+     * @param y A variable of type int
+     * @param size A variable of type float
+     */
     public Zombie(PApplet p, int x, int y, float size){
         super(p, x, y, size);
         setC(Color.RED);
     }
 
-     @Override
+    /**
+     * Function Overridden from Creature Class
+     * Called every frame to update the Zombie object
+     */
+    @Override
     public void Update(){
         search();
         super.Update();
     }
 
+    /**
+     * Finds the closest human within a circle from
+     * the Zombie object and sets it to be the target
+     */
     private void search(){
         ArrayList<Human> humans = Canvas.getHumans();
         Human closest = null;
@@ -41,8 +60,11 @@ public class Zombie extends Creature {
         }
     }
 
-
-
+    /**
+     * Function Overridden from Creature Class
+     * Called when the Zombie should
+     * die and handles it death
+     */
     @Override
     public void death(){
         super.death();
