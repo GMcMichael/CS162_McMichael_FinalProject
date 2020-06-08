@@ -1,5 +1,4 @@
 import processing.core.PApplet;
-import java.awt.Color;
 import java.util.ArrayList;
 /**
  * Zombie.java

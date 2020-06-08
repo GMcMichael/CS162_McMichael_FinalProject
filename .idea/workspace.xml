@@ -2,19 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47e9b64f-55ad-4396-9a15-d035eb88519d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/FileIO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Canvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Canvas.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/FileIO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/FileIO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Human.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Human.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Resource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Resource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/UserInterface$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/UserInterface$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Settings.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/UserInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/UserInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Zombie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CS162_McMichael_FinalProject/Zombie.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Canvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Canvas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Human.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Resource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Resource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Zombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Zombie.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -102,22 +98,22 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="598" y="325" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1591571748288" />
-    <state width="1877" height="287" key="GridCell.Tab.0.bottom" timestamp="1591584083350">
+    <state width="916" height="287" key="GridCell.Tab.0.bottom" timestamp="1591585324783">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="287" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1591584083350" />
-    <state width="1877" height="287" key="GridCell.Tab.0.center" timestamp="1591584083349">
+    <state width="916" height="287" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1591585324783" />
+    <state width="916" height="287" key="GridCell.Tab.0.center" timestamp="1591585324783">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="287" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1591584083349" />
-    <state width="1877" height="287" key="GridCell.Tab.0.left" timestamp="1591584083349">
+    <state width="916" height="287" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1591585324783" />
+    <state width="916" height="287" key="GridCell.Tab.0.left" timestamp="1591585324782">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="287" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1591584083349" />
-    <state width="1877" height="287" key="GridCell.Tab.0.right" timestamp="1591584083349">
+    <state width="916" height="287" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1591585324782" />
+    <state width="916" height="287" key="GridCell.Tab.0.right" timestamp="1591585324783">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="287" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1591584083349" />
+    <state width="916" height="287" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1591585324783" />
     <state width="1877" height="363" key="GridCell.Tab.1.bottom" timestamp="1591533506236">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

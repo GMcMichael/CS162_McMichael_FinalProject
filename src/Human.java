@@ -10,9 +10,9 @@ public class Human extends Creature{
     private float food = 100;
     private float water = 100;
     private float resourceGatherAmount;
-    private final float baseResourceUse = (float) Canvas.getBaseResourceUse()/10;
-    private final int sizeResourceUse = Canvas.getSizeResourceUse();
-    private final int zombieSeekSize = Canvas.getZombieSeekSize();
+    private float baseResourceUse = (float) Canvas.getBaseResourceUse()/10;
+    private int sizeResourceUse = Canvas.getSizeResourceUse();
+    private int zombieSeekSize = Canvas.getZombieSeekSize();
     private boolean resourceTarget;
     private boolean reachedTarget = true;
     private int minResourceSize = 10;
