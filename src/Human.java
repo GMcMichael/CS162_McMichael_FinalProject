@@ -1,5 +1,4 @@
 import processing.core.PApplet;
-import java.awt.Color;
 import java.util.ArrayList;
 /**
  * Human.java
@@ -27,7 +26,7 @@ public class Human extends Creature{
      */
     public Human(PApplet p, int x, int y, float size){
         super(p, x, y, size);
-        setC(Color.BLUE);
+        setC(Canvas.getHumanColor());
         setSize(size);
     }
 

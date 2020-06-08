@@ -9,7 +9,6 @@ public class Resource extends drawnObject {
 
     private char type;
     private int amount = Canvas.getFoodStartAmount();
-    private float regenAmount;
     private float baseRegenAmount = Canvas.getFoodBaseRegenAmount();
     private int maxSize = Canvas.getFoodMaxSize();
 
@@ -26,13 +25,13 @@ public class Resource extends drawnObject {
         this.type = type;
         switch (type){
             case 'f':
-                setC(Color.YELLOW);
+                setC(Canvas.getFoodColor());
                 setAmount(Canvas.getFoodStartAmount());
                 setBaseRegenAmount(Canvas.getFoodBaseRegenAmount());
                 setMaxSize(Canvas.getFoodMaxSize());
                 break;
             case 'w':
-                setC(Color.CYAN);
+                setC(Canvas.getWaterColor());
                 setAmount(Canvas.getWaterStartAmount());
                 setBaseRegenAmount(Canvas.getWaterBaseRegenAmount());
                 setMaxSize(Canvas.getWaterMaxSize());

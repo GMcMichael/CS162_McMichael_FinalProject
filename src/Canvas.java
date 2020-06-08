@@ -2,6 +2,8 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  * Canvas.java
  * @author Garrett McMichael
@@ -26,8 +28,8 @@ public class Canvas extends PApplet {
     private static int maxFood = 0;
     private static int minWater = 0;
     private static int maxWater = 0;
-    private static int foodBaseRegenAmount = 10;
-    private static int waterBaseRegenAmount = 10;
+    private static int foodBaseRegenAmount = 20;
+    private static int waterBaseRegenAmount = 20;
     private static int foodMaxSize = 15;
     private static int waterMaxSize = 15;
     private static int foodStartAmount = 100;
@@ -39,8 +41,13 @@ public class Canvas extends PApplet {
     private static int zombieSeekSize = 11;
     private static int maxSpeed = 1;
     private static int zombieDetectionRange = 200;
+    private static Color humanColor = Color.blue;
+    private static Color zombieColor = Color.red;
+    private static Color foodColor = Color.yellow;
+    private static Color waterColor = Color.cyan;
+    private static ArrayList<Color> colors = new ArrayList<Color> (Arrays.asList(Color.black, Color.blue, Color.cyan, Color.darkGray, Color.gray, Color.lightGray, Color.green, Color.magenta, Color.orange, Color.pink, Color.red, Color.white, Color.yellow));
     private static int spawnOffset;
-    private PFont font;
+    private static PFont font;
 
     /**
      * Sets the PApplets size
@@ -54,10 +61,14 @@ public class Canvas extends PApplet {
      * Creates the Human, Zombie, and Resource objects
      */
     public void setup(){
-        if(minFood == 0) minFood = minHumans/10;
-        if(maxFood == 0) maxFood = maxHumans/10;
-        if(minWater == 0) minWater = minHumans/10;
-        if(maxWater == 0) maxWater = maxHumans/10;
+        if(minFood == 0) minFood = minHumans/5;
+        if(maxFood == 0) maxFood = maxHumans/5;
+        if(minWater == 0) minWater = minHumans/5;
+        if(maxWater == 0) maxWater = maxHumans/5;
+        if(minFood < 0) minFood = 0;
+        if(minWater < 0) minWater = 0;
+        if(maxFood < minFood) maxFood = minFood;
+        if(maxWater < minWater) maxWater = minWater;
         spawnOffset = (width/10);
 
         font = createFont("Arial",16);
@@ -584,4 +595,106 @@ public class Canvas extends PApplet {
     public static void setZombieDetectionRange(int zombieDetectionRange) {
         Canvas.zombieDetectionRange = zombieDetectionRange;
     }
+
+    /**
+     * Returns the human color variable
+     * @return A variable of type Color
+     */
+    public static Color getHumanColor() {
+        return humanColor;
+    }
+
+    /**
+     * Sets the human color variable
+     * @param humanColor A variable of type Color
+     */
+    public static void setHumanColor(Color humanColor) {
+        Canvas.humanColor = humanColor;
+    }
+
+    /**
+     * Returns the zombie color variable
+     * @return A variable of type Color
+     */
+    public static Color getZombieColor() {
+        return zombieColor;
+    }
+
+    /**
+     * Sets the zombie color variable
+     * @param zombieColor A variable of type Color
+     */
+    public static void setZombieColor(Color zombieColor) {
+        Canvas.zombieColor = zombieColor;
+    }
+
+    /**
+     * Returns the food color variable
+     * @return A variable of type Color
+     */
+    public static Color getFoodColor() {
+        return foodColor;
+    }
+
+    /**
+     * Sets the food color variable
+     * @param foodColor A variable of type Color
+     */
+    public static void setFoodColor(Color foodColor) {
+        Canvas.foodColor = foodColor;
+    }
+
+    /**
+     * Returns the water color variable
+     * @return A variable of type Color
+     */
+    public static Color getWaterColor() {
+        return waterColor;
+    }
+
+    /**
+     * Sets the water color variable
+     * @param waterColor A variable of type Color
+     */
+    public static void setWaterColor(Color waterColor) {
+        Canvas.waterColor = waterColor;
+    }
+
+    /**
+     * Returns the specified variable based on the int passed in
+     * @param num A variable of type int
+     * @return A variable of type Color
+     */
+    public static Color getColors(int num){
+        switch (num){
+            case 0:
+                return getHumanColor();
+            case 1:
+                return getZombieColor();
+            case 2:
+                return getFoodColor();
+            default:
+                return getWaterColor();
+        }
+    }
+
+    /**
+     * Method used to save settings to file
+     * @return A variable of type String
+     */
+    public static String getSettings(){
+        return width + " " + height + " " + humans + " " + zombies + " " + minHumans + " " + maxHumans + " " + minZombies + " " + maxZombies + " " + minFood + " " + maxFood + " " + minWater + " " + maxWater + " "
+                + foodBaseRegenAmount + " " + waterBaseRegenAmount + " " + foodStartAmount + " " + waterStartAmount + " " + foodMaxSize + " " + waterMaxSize + " " + useTimerMax + " " + baseResourceUse + " "
+                + sizeResourceUse + " " + zombieSeekSize + " " + maxSpeed + " " + zombieDetectionRange + " " + colors.indexOf(humanColor) + " " + colors.indexOf(zombieColor) + " " + colors.indexOf(foodColor) + " "
+                + colors.indexOf(waterColor) + " " + UserInterface.getWidth() + " " + UserInterface.getHeight() + " " + UserInterface.getLabelOffset();
+    }
+
+    /**
+     * Creates a new FileIO object and sends in the current settings
+     */
+    public static void saveSettings(){
+        FileIO fileIO = new FileIO();
+        fileIO.setSettings(getSettings());
+    }
+
 }

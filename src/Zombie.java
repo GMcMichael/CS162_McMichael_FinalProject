@@ -19,7 +19,7 @@ public class Zombie extends Creature {
      */
     public Zombie(PApplet p, int x, int y, float size){
         super(p, x, y, size);
-        setC(Color.RED);
+        setC(Canvas.getZombieColor());
     }
 
     /**

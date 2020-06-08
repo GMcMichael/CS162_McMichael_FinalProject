@@ -2,16 +2,19 @@ import processing.core.PApplet;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SpinnerListModel;
 import javax.swing.BorderFactory;
-import javax.swing.JSpinner;
-import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 /**
  * UserInterface.java
  * @author Garrett McMichael
@@ -22,62 +25,104 @@ public class UserInterface {
 
     private JFrame frame;
     private JPanel panel;
-    private JButton start;
-    private final int offset = 10;
-    private int labelOffset = 40;//change this to affect the end size of JFrame window
+    private JButton start, setDefault;
+    private static int width = 600;
+    private static int height = 840;
+    private int offset = 10;
+    private static int labelOffset = 30;//change this to affect the end size of JFrame window
     private ArrayList<SpinnerModel> spinnerModels = new ArrayList<SpinnerModel>();
     private String[] labels = new String[] {"Width", "Height", "Humans", "Zombies", "Minimum Humans", "Maximum Humans", "Minimum Zombies", "Maximum Zombies",
                                             "Minimum Food", "Maximum Food", "Minimum Water", "Maximum Water", "Food Regen Amount", "Water Regen Amount",
                                             "Food Starting Amount", "Water Starting Amount", "Food Max Size", "Water Max Size", "Human Resource Use Timer",
-                                            "Human Base Resource Use", "Human Size Change Resource Use", "Human Zombie Seek Size", "Max Speed", "Zombie Detection Range"};
-    private int[] coNumbers = new int[] {Canvas.getWidth(), Canvas.getHeight(), 0, 0, Canvas.getMinHumans(), Canvas.getMaxHumans(), Canvas.getMinZombies(), Canvas.getMaxZombies(), Canvas.getMinFood(), Canvas.getMaxFood(),
-                                        Canvas.getMinWater(), Canvas.getMaxWater()};
-    private float[] soloNumbers = new float[] {Canvas.getFoodBaseRegenAmount(), Canvas.getWaterBaseRegenAmount(), Canvas.getFoodStartAmount(), Canvas.getWaterStartAmount(), Canvas.getFoodMaxSize(),
-                                                Canvas.getWaterMaxSize(), Canvas.getUseTimerMax(), Canvas.getBaseResourceUse(), Canvas.getSizeResourceUse(), Canvas.getZombieSeekSize(), Canvas.getMaxSpeed(),
-                                                Canvas.getZombieDetectionRange()};
+                                            "Human Base Resource Use", "Human Size Change Resource Use", "Human Zombie Seek Size", "Max Speed", "Zombie Detection Range",
+                                            "Human Color", "Zombie Color", "Food Color", "Water Color"};
+    private String[] windowLabels = new String[] {"Width", "Height", "Label Offset"};
+    private int[] windowSettings;
+    private int[] coNumbers;
+    private float[] soloNumbers;
+    private ArrayList<String> colorNames = new ArrayList<String>(Arrays.asList("Black", "Blue", "Cyan", "Dark Grey", "Gray", "Light Grey", "Green", "Magenta", "Orange", "Pink", "Red", "White", "Yellow"));
+    private ArrayList<Color> colors = new ArrayList<Color> (Arrays.asList(Color.black, Color.blue, Color.cyan, Color.darkGray, Color.gray, Color.lightGray, Color.green, Color.magenta, Color.orange, Color.pink, Color.red, Color.white, Color.yellow));
+    private String[] defaultColors = new String[] {"Blue", "Red", "Yellow", "Cyan"};
 
     /**
      * UserInterfaces' Constructor
      */
     public UserInterface(){
+        getSettings();
+        setNumbers();
         frame = new JFrame("CS162_McMichael_FinalProject");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(offset, offset, offset, offset));
-        panel.setLayout(new GridLayout(labels.length+2, 2));//labels.length+3 extends the grid to be as big as I need it to be//todo change to +3 when I add window settings
-        //panel.add(new JLabel("Window Settings: "));
+        panel.setLayout(new GridLayout(labels.length + windowLabels.length + 3, 2));//labels.length+3 extends the grid to be as big as I need it to be
+        panel.add(new JLabel("Window Settings: "));
         panel.add(new JLabel("Click start to begin or close this window to exit"));
-        //Add Window Settings here (like changing labelOffset)//todo need file saving to add window settings
-        //panel.add(new JLabel("Simulation Settings: "));
+        ArrayList<SpinnerModel> tempSpinnerModels = new ArrayList<SpinnerModel>();
+        for (int i = 0; i < windowLabels.length; i++) {
+            SpinnerModel newModel = new SpinnerNumberModel();
+            newModel.setValue(windowSettings[i]);
+            ((SpinnerNumberModel)newModel).setMinimum(0);
+            tempSpinnerModels.add(newModel);
+            addLabeledSpinner(windowLabels[i], newModel);
+        }
+        spinnerModels.clear();
+        panel.add(new JLabel("Simulation Settings: "));
         panel.add(new JLabel("Leave settings at 0 for random/default values"));
         for (int i = 0; i < coNumbers.length; i++) {
             SpinnerModel newModel = new SpinnerNumberModel();
             newModel.setValue(coNumbers[i]);
             addLabeledSpinner(labels[i], newModel);
-            spinnerModels.add(newModel);
         }
         for (int i = 0; i < soloNumbers.length; i++) {
             SpinnerModel newModel = new SpinnerNumberModel();
             newModel.setValue(soloNumbers[i]);
             addLabeledSpinner(labels[i+coNumbers.length], newModel);
-            spinnerModels.add(newModel);
         }
+        for (int i = 0; i < 4; i++) {
+            SpinnerModel newModel = new SpinnerListModel(colorNames);
+            newModel.setValue(colorNames.get(colors.indexOf(Canvas.getColors(i))));
+            addLabeledSpinner(labels[i+coNumbers.length+soloNumbers.length], newModel);
+        }
+
+        spinnerModels.addAll(tempSpinnerModels);
 
         start = new JButton("Start");
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setSettings();
+                Canvas.saveSettings();
                 PApplet.main(OPTIONS);
                 frame.setVisible(false);
             }
         });
+        setDefault = new JButton("Defaults");
+        setDefault.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getDefaultSettings();
+            }
+        });
         panel.add(start);
+        panel.add(setDefault);
 
         frame.add(panel);
-        frame.setPreferredSize(new Dimension(600, labels.length*labelOffset));
+        frame.setPreferredSize(new Dimension(width, height));
         frame.pack();
         frame.setVisible(true);
+    }
+
+    /**
+     * Sets the Arrays' numbers after they have been initialized
+     */
+    private void setNumbers(){
+        soloNumbers = new float[] {Canvas.getFoodBaseRegenAmount(), Canvas.getWaterBaseRegenAmount(), Canvas.getFoodStartAmount(), Canvas.getWaterStartAmount(), Canvas.getFoodMaxSize(),
+                Canvas.getWaterMaxSize(), Canvas.getUseTimerMax(), Canvas.getBaseResourceUse(), Canvas.getSizeResourceUse(), Canvas.getZombieSeekSize(), Canvas.getMaxSpeed(),
+                Canvas.getZombieDetectionRange()};
+        coNumbers = new int[] {Canvas.getWidth(), Canvas.getHeight(), 0, 0, Canvas.getMinHumans(), Canvas.getMaxHumans(), Canvas.getMinZombies(), Canvas.getMaxZombies(), Canvas.getMinFood(), Canvas.getMaxFood(),
+                Canvas.getMinWater(), Canvas.getMaxWater()};
+        height = labels.length*labelOffset;
+        windowSettings = new int[] {width, height, labelOffset};
     }
 
     /**
@@ -86,12 +131,13 @@ public class UserInterface {
      * @param model A variable of type SpinnerModel
      */
      private void addLabeledSpinner(String label, SpinnerModel model) {
-        JLabel l = new JLabel(label);
-        panel.add(l);
+         spinnerModels.add(model);
+         JLabel l = new JLabel(label);
+         panel.add(l);
 
-        JSpinner spinner = new JSpinner(model);
-        l.setLabelFor(spinner);
-        panel.add(spinner);
+         JSpinner spinner = new JSpinner(model);
+         l.setLabelFor(spinner);
+         panel.add(spinner);
     }
 
     /**
@@ -109,6 +155,14 @@ public class UserInterface {
         }
         for (int i = 0; i < soloNumbers.length; i++) {
             int num = i + coNumbers.length;
+            setSettingsMethods(num, ((SpinnerNumberModel) spinnerModels.get(num)).getNumber().intValue());
+        }
+        for (int i = 0; i < defaultColors.length; i++) {
+            int num = i + coNumbers.length + soloNumbers.length;
+            setSettingsMethods(num, colorNames.indexOf(spinnerModels.get(num).getValue()));
+        }
+        for (int i = 0; i < windowLabels.length; i++) {
+            int num = i + coNumbers.length + soloNumbers.length + defaultColors.length;
             setSettingsMethods(num, ((SpinnerNumberModel) spinnerModels.get(num)).getNumber().intValue());
         }
     }
@@ -194,6 +248,27 @@ public class UserInterface {
             case 23:
                 Canvas.setZombieDetectionRange(settingNum);
                 break;
+            case 24:
+                Canvas.setHumanColor(colors.get(settingNum));
+                break;
+            case 25:
+                Canvas.setZombieColor(colors.get(settingNum));
+                break;
+            case 26:
+                Canvas.setFoodColor(colors.get(settingNum));
+                break;
+            case 27:
+                Canvas.setWaterColor(colors.get(settingNum));
+                break;
+            case 28:
+                width = settingNum;
+                break;
+            case 29:
+                height = settingNum;
+                break;
+            case 30:
+                labelOffset = settingNum;
+                break;
         }
     }
 
@@ -209,4 +284,60 @@ public class UserInterface {
         return new int[] {min, max};
     }
 
+    /**
+     * Creates a new FileIO object and gets the saved settings
+     */
+    private void getSettings(){
+        FileIO fileIO = new FileIO();
+        String[] newSettings = fileIO.getSettings().split(" ");
+
+        for (int i = 0; i < newSettings.length; i++) {
+            setSettingsMethods(i, Integer.parseInt(newSettings[i]));
+        }
+    }
+
+    /**
+     * Creates a new FileIO object and gets the default settings
+     */
+    private void getDefaultSettings(){
+        FileIO fileIO = new FileIO();
+        String[] newSettings = fileIO.getDefaults().split(" ");
+
+        for (int i = 0; i < newSettings.length; i++) {
+            try{
+                ((SpinnerNumberModel)spinnerModels.get(i)).setValue(Integer.parseInt(newSettings[i]));
+            } catch (Exception e){
+                System.out.println("Error casting spinnerModels to SpinnerNumber");
+                try{
+                    ((SpinnerListModel)spinnerModels.get(0)).setValue(colors.get(Integer.parseInt(newSettings[i])));
+                } catch (Exception ex){
+                    System.out.println("Error casting spinnerModels to SpinnerList");
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns the width of the UI window
+     * @return A variable of type int
+     */
+    public static int getWidth() {
+        return width;
+    }
+
+    /**
+     * Returns the height of the UI window
+     * @return A variable of type int
+     */
+    public static int getHeight() {
+        return height;
+    }
+
+    /**
+     * Returns the label offset for the UI window
+     * @return A variable of type int
+     */
+    public static int getLabelOffset() {
+        return labelOffset;
+    }
 }
